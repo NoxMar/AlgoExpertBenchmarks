@@ -3,6 +3,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace AlgoExpertBenchmarks;
 
+[MemoryDiagnoser]
 public class TournamentWinner
 {
     private static Random _random = new Random(12345);
