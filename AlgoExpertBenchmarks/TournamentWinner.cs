@@ -1,5 +1,4 @@
 using System.Text;
-using System.Linq;
 using BenchmarkDotNet.Attributes;
 
 namespace AlgoExpertBenchmarks;
@@ -47,7 +46,7 @@ public class TournamentWinner
     }
 
     [Benchmark]
-    public string UsingDictionary()
+    public string UsingDictionaryAndAggregate()
     {
         Dictionary<string, int> seenCounts = new();
         foreach (var winner in _winners)
@@ -61,8 +60,28 @@ public class TournamentWinner
     }
     
     [Benchmark]
-    public string UsingGroupBy() => _winners
+    public string UsingDictionaryAndMaxBy()
+    {
+        Dictionary<string, int> seenCounts = new();
+        foreach (var winner in _winners)
+        {
+            seenCounts[winner] = seenCounts.GetValueOrDefault(winner, 0) + 1;
+        }
+
+        return seenCounts
+            .MaxBy(kv => kv.Value)
+            .Key;
+    }
+    
+    [Benchmark]
+    public string UsingGroupByAndAggregate() => _winners
         .GroupBy(x => x)
         .Aggregate((g1, g2) => g2.Count() > g1.Count() ? g2 : g1)
         .Key;
+    
+    [Benchmark]
+    public string UsingGroupByAndMaxBy() => _winners
+        .GroupBy(x => x)
+        .MaxBy(g => g.Count())
+        !.Key;
 }
