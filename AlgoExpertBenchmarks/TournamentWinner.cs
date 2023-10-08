@@ -6,7 +6,7 @@ namespace AlgoExpertBenchmarks;
 [MemoryDiagnoser]
 public class TournamentWinner
 {
-    private static Random _random = new Random(12345);
+    private static readonly Random Random = new(12345);
 
     private const string CharacterSource = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -24,8 +24,9 @@ public class TournamentWinner
         
     public TournamentWinner()
     {
+        Console.WriteLine("Constructor call");
         _winners = Enumerable.Range(1, WinnersTotal)
-            .Select(_ => _teams[_random.Next(_teams.Count)])
+            .Select(_ => _teams[Random.Next(_teams.Count)])
             .ToList();
     }
 
@@ -36,9 +37,9 @@ public class TournamentWinner
         while (uniqueStrings.Count < resultCount)
         {
             currentString.Clear();
-            for (int _ = 0; _ < _random.Next(lenghtMinInclusive, lenghtMaxInclusive + 1); _++)
+            for (int _ = 0; _ < Random.Next(lenghtMinInclusive, lenghtMaxInclusive + 1); _++)
             {
-                currentString.Append(characterSource[_random.Next(characterSource.Length)]);
+                currentString.Append(characterSource[Random.Next(characterSource.Length)]);
             }
             uniqueStrings.Add(currentString.ToString());
         }
