@@ -3,4 +3,4 @@
 using AlgoExpertBenchmarks;
 using BenchmarkDotNet.Running;
 
-BenchmarkRunner.Run<TournamentWinner>();
+BenchmarkRunner.Run<StaircaseTraversal>();
