@@ -2,6 +2,7 @@ using BenchmarkDotNet.Attributes;
 
 namespace AlgoExpertBenchmarks;
 
+[MemoryDiagnoser]
 public class StaircaseTraversal
 {
     private int StaircaseTraversalRecursive(int height, int maxSteps) {
