@@ -32,3 +32,15 @@ Quite simple recursion exercise about counting the ways something (in this case 
 | StaircaseTraversal_Memoize        |  15              |  5         |    2,068.8 ns |    40.73 ns |    51.51 ns |      776 B |
 
 As the results clearly show memoization significantly reduces the execution time while not needing a lot of memory on the heap which is used to store previously calculated results.
+
+### Group Anagrams
+
+An exercise in which we have to, as the name states, group words which are anagrams of each other from a list given as a parameter.
+For this exercise, I was interested in benchmarking if there is any significant difference between using a dictionary vs `GroupBy` LINQ method for implementing grouping anagrams with their sorted letters as the key.
+
+| Method                        | Mean      | Error    | StdDev   | Gen0    | Gen1   | Allocated |
+| ----------------------------- | --------- | -------- | -------- | ------- | ------ | --------- |
+| GroupAnagrams_UsingLinq       | 494.2 us  | 9.80 us  | 17.16 us | 36.1328 | 3.9063 | 226.14 KB |
+| GroupAnagrams_UsingDictionary | 498.3 us  | 9.95 us  | 28.72 us | 31.2500 | 2.9297 | 196.96 KB |
+
+As the results show, the difference is mostly visible in the amount of the allocated memory. That being said, ~13% improvement isn't insignificant, however it has to be weighted against code complexity and readability on a case by case basis.
