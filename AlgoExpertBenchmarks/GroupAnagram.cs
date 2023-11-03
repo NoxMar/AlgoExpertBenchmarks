@@ -48,11 +48,33 @@ public class GroupAnagrams
         .ToList();
 #pragma warning restore CA1822
     
+    [Benchmark]
+#pragma warning disable CA1822
+    public List<List<string>> GroupAnagrams_UsingDictionary()
+#pragma warning restore CA1822
+    {
+        var wordsBySortedLetters = new Dictionary<string, List<string>>();
+        foreach (var word in Words)
+        {
+            var sortedWord = SortString(word);
+            if (!wordsBySortedLetters.ContainsKey(sortedWord))
+            {
+                wordsBySortedLetters[sortedWord] = new List<string>();
+            }
+            wordsBySortedLetters[sortedWord].Add(word);
+        }
+        return wordsBySortedLetters
+            .Values
+            .ToList();
+    }
+    
     private static string SortString(string str)
     {
         var sortedChars = str.ToCharArray();
         Array.Sort(sortedChars);
         return new string(sortedChars);
     }
+
+
 }
 
